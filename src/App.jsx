@@ -282,36 +282,215 @@ function FloatingDiyas() {
 function BottomScene() {
   return (
     <div className="bottom-scene" aria-hidden="true">
-      {/* Grass */}
-      <div className="grass" />
-      {/* Fence */}
-      <div className="fence">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <div key={i} className="fence-picket" />
+      <svg viewBox="0 0 600 220" className="bottom-scene-svg" preserveAspectRatio="xMidYMax meet">
+        {/* ── Sky gradient ── */}
+        <defs>
+          <clipPath id="guruClip">
+            <rect x="148" y="44" width="118" height="130" rx="6"/>
+          </clipPath>
+          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#FDF3DC" stopOpacity="0" />
+            <stop offset="100%" stopColor="#F5DEB3" stopOpacity="0.3" />
+          </linearGradient>
+          <linearGradient id="grassGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#4a9e4a" />
+            <stop offset="100%" stopColor="#1e4d1e" />
+          </linearGradient>
+          <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#C8A96E" />
+            <stop offset="100%" stopColor="#8B6914" />
+          </linearGradient>
+          <linearGradient id="fireGrad" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stopColor="#8B1A1A" />
+            <stop offset="40%" stopColor="#E8960C" />
+            <stop offset="100%" stopColor="#FFD700" />
+          </linearGradient>
+          <radialGradient id="fireGlow" cx="50%" cy="80%" r="50%">
+            <stop offset="0%" stopColor="#FF6B00" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#FF6B00" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id="haloGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        {/* Ground */}
+        <rect x="0" y="170" width="600" height="50" fill="url(#groundGrad)" rx="0" />
+        {/* Grass blades */}
+        {[20,45,70,90,120,150,180,210,240,270,300,330,360,390,420,450,480,510,535,560,580].map((x,i) => (
+          <g key={i}>
+            <path d={`M${x} 170 Q${x-4} ${155+i%3*4},${x-6} ${148+i%4*3}`} stroke="#4a9e4a" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.9" />
+            <path d={`M${x+3} 170 Q${x+6} ${158+i%2*4},${x+8} ${150+i%3*4}`} stroke="#2D6A2D" strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.7" />
+          </g>
         ))}
-        <div className="fence-rail fence-rail-top" />
-        <div className="fence-rail fence-rail-bottom" />
-      </div>
-      {/* Ceremony figures */}
-      <div className="ceremony-figures">
-        {/* Guru */}
-        <div className="figure figure-guru">
-          <div className="figure-head" />
-          <div className="figure-body guru-body" />
-        </div>
-        {/* Student */}
-        <div className="figure figure-student">
-          <div className="figure-head" />
-          <div className="figure-body student-body" />
-        </div>
-        {/* Sacred fire */}
-        <div className="sacred-fire">
-          <div className="fire-base" />
-          <div className="fire-flame flame-1" />
-          <div className="fire-flame flame-2" />
-          <div className="fire-flame flame-3" />
-        </div>
-      </div>
+        {/* Dirt texture line */}
+        <path d="M0 172 Q150 168,300 172 Q450 176,600 172" stroke="#A0844A" strokeWidth="1" fill="none" opacity="0.4" />
+
+        {/* ── Left banana / palm leaves ── */}
+        <g opacity="0.85">
+          <path d="M60 170 C55 130,20 100,5 60" stroke="#2D6A2D" strokeWidth="3" fill="none" strokeLinecap="round"/>
+          <path d="M60 170 C65 125,80 95,100 55" stroke="#2D6A2D" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+          {/* Big leaf left */}
+          <path d="M55 130 C30 115,5 100,0 80 C10 88,30 100,55 130Z" fill="#3a8a3a" opacity="0.8"/>
+          <path d="M58 118 C38 108,20 98,10 82 C0 76,2 72,8 78 C20 90,42 104,58 118Z" fill="#4a9e4a" opacity="0.5"/>
+          {/* Big leaf right */}
+          <path d="M62 125 C82 108,105 90,115 65 C108 72,90 86,62 125Z" fill="#3a8a3a" opacity="0.8"/>
+          <path d="M62 112 C80 98,96 84,108 64 C116 58,118 62,110 68 C98 80,80 96,62 112Z" fill="#4a9e4a" opacity="0.5"/>
+          {/* Trunk */}
+          <path d="M60 170 C60 160,58 145,58 130" stroke="#8B6914" strokeWidth="5" fill="none" strokeLinecap="round" opacity="0.6"/>
+        </g>
+
+        {/* ── Right banana / palm leaves ── */}
+        <g opacity="0.85">
+          <path d="M540 170 C545 130,580 100,595 60" stroke="#2D6A2D" strokeWidth="3" fill="none" strokeLinecap="round"/>
+          <path d="M540 170 C535 125,520 95,500 55" stroke="#2D6A2D" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+          <path d="M545 130 C570 115,595 100,600 80 C590 88,570 100,545 130Z" fill="#3a8a3a" opacity="0.8"/>
+          <path d="M542 118 C562 108,580 98,590 82 C600 76,598 72,592 78 C580 90,558 104,542 118Z" fill="#4a9e4a" opacity="0.5"/>
+          <path d="M538 125 C518 108,495 90,485 65 C492 72,510 86,538 125Z" fill="#3a8a3a" opacity="0.8"/>
+          <path d="M538 112 C520 98,504 84,492 64 C484 58,482 62,490 68 C502 80,520 96,538 112Z" fill="#4a9e4a" opacity="0.5"/>
+          <path d="M540 170 C540 160,542 145,542 130" stroke="#8B6914" strokeWidth="5" fill="none" strokeLinecap="round" opacity="0.6"/>
+        </g>
+
+        {/* ── Woven mat / aasana on ground ── */}
+        <ellipse cx="300" cy="172" rx="160" ry="10" fill="#C8A96E" opacity="0.35"/>
+        {/* Mat weave lines */}
+        {[-120,-80,-40,0,40,80,120].map((dx,i)=>(
+          <line key={i} x1={300+dx} y1="166" x2={300+dx} y2="178" stroke="#A0844A" strokeWidth="1" opacity="0.3"/>
+        ))}
+        <path d="M140 172 Q300 163,460 172 Q300 181,140 172Z" fill="#D4AF37" opacity="0.12"/>
+
+        {/* ── Yagna kund (fire altar) ── */}
+        {/* Altar base */}
+        <path d="M272 168 L264 152 L336 152 L328 168Z" fill="#8B6914" opacity="0.9"/>
+        <path d="M266 155 L334 155" stroke="#D4AF37" strokeWidth="1" opacity="0.5"/>
+        <path d="M268 160 L332 160" stroke="#D4AF37" strokeWidth="1" opacity="0.4"/>
+        {/* Altar rim decoration */}
+        <path d="M262 152 L338 152" stroke="#D4AF37" strokeWidth="2" opacity="0.7"/>
+        {[272,284,296,308,320,328].map((x,i)=>(
+          <circle key={i} cx={x} cy="152" r="1.5" fill="#D4AF37" opacity="0.6"/>
+        ))}
+        {/* Fire glow */}
+        <ellipse cx="300" cy="150" rx="28" ry="12" fill="url(#fireGlow)" />
+        {/* Fire flames */}
+        <path d="M300 150 C296 138,290 130,295 118 C298 112,300 115,300 118 C300 115,302 112,305 118 C310 130,304 138,300 150Z" fill="url(#fireGrad)" className="flame-svg-1"/>
+        <path d="M293 148 C290 138,285 130,289 121 C291 116,293 119,291 124 C293 116,296 118,294 126 C296 118,299 119,297 130 C295 138,293 148,293 148Z" fill="#E8960C" opacity="0.7" className="flame-svg-2"/>
+        <path d="M307 148 C310 138,315 130,311 121 C309 116,307 119,309 124 C307 116,304 118,306 126 C304 118,301 119,303 130 C305 138,307 148,307 148Z" fill="#FF6B00" opacity="0.65" className="flame-svg-3"/>
+        {/* Smoke wisps */}
+        <path d="M300 115 Q296 105,300 95 Q304 85,300 75" stroke="#D4AF37" strokeWidth="1.5" fill="none" opacity="0.2" strokeLinecap="round"/>
+        <path d="M294 120 Q288 108,291 96" stroke="#D4AF37" strokeWidth="1" fill="none" opacity="0.15" strokeLinecap="round"/>
+        <path d="M306 120 Q312 108,309 96" stroke="#D4AF37" strokeWidth="1" fill="none" opacity="0.15" strokeLinecap="round"/>
+
+        {/* ── Sacred text / vedic book in front of fire ── */}
+        <rect x="278" y="158" width="44" height="8" rx="1" fill="#FDF3DC" stroke="#D4AF37" strokeWidth="1" opacity="0.9"/>
+        <line x1="282" y1="161" x2="318" y2="161" stroke="#8B1A1A" strokeWidth="0.5" opacity="0.4"/>
+        <line x1="282" y1="163" x2="318" y2="163" stroke="#8B1A1A" strokeWidth="0.5" opacity="0.4"/>
+        <path d="M298 159 L300 157 L302 159Z" fill="#D4AF37" opacity="0.5"/>
+
+        {/* ── Guru figure — real photo ── */}
+        <g className="scene-guru">
+          {/* Golden halo behind */}
+          <ellipse cx="205" cy="108" rx="52" ry="48" fill="url(#haloGrad)"/>
+          <ellipse cx="205" cy="108" rx="38" ry="34" fill="none" stroke="#D4AF37" strokeWidth="1" opacity="0.25"/>
+          {/* Guru photo — mix-blend-mode:multiply removes white bg */}
+          <image
+            href="/guru.jpg"
+            x="148"
+            y="44"
+            width="118"
+            height="130"
+            preserveAspectRatio="xMidYMax meet"
+            className="guru-photo-img"
+            clipPath="url(#guruClip)"
+          />
+        </g>
+
+        {/* ── Student 1 (left of guru) — seated, namaste pose ── */}
+        <g className="scene-student1">
+          {/* Body */}
+          <path d="M148 168 Q152 154,160 150 Q165 148,170 150 Q178 154,182 168Z" fill="#FDF3DC" opacity="0.9" stroke="#D4AF37" strokeWidth="0.5"/>
+          <ellipse cx="152" cy="167" rx="6" ry="3.5" fill="#C8A96E" opacity="0.5"/>
+          <ellipse cx="178" cy="167" rx="6" ry="3.5" fill="#C8A96E" opacity="0.5"/>
+          {/* Torso */}
+          <path d="M158 150 Q165 144,172 150 L170 132 Q165 130,160 132Z" fill="#FDF3DC" opacity="0.85" stroke="#D4AF37" strokeWidth="0.5"/>
+          {/* Namaste arms */}
+          <path d="M160 140 Q164 134,165 130" stroke="#D4820A" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+          <path d="M170 140 Q166 134,165 130" stroke="#D4820A" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+          <ellipse cx="165" cy="129" rx="4" ry="3" fill="#D4820A" opacity="0.7"/>
+          {/* Head */}
+          <circle cx="165" cy="119" r="11" fill="#D4820A" opacity="0.9"/>
+          {/* Short hair */}
+          <path d="M156 115 C156 107,160 103,165 103 C170 103,174 107,174 115" fill="#3D1A00" opacity="0.75"/>
+          {/* Eyes */}
+          <circle cx="161" cy="119" r="1.5" fill="#3D1A00"/>
+          <circle cx="169" cy="119" r="1.5" fill="#3D1A00"/>
+          {/* Tilak */}
+          <path d="M163 113 L165 110 L167 113Z" fill="#8B1A1A" opacity="0.8"/>
+          {/* Sacred thread — yagnopavita */}
+          <path d="M157 128 Q165 136,173 128 Q170 122,165 120 Q160 122,157 128Z" stroke="#FFF5CC" strokeWidth="1" fill="none" opacity="0.7"/>
+        </g>
+
+        {/* ── Student 2 (right of fire) — seated, listening ── */}
+        <g className="scene-student2">
+          <path d="M358 168 Q362 154,370 150 Q375 148,380 150 Q388 154,392 168Z" fill="#FDF3DC" opacity="0.9" stroke="#D4AF37" strokeWidth="0.5"/>
+          <ellipse cx="362" cy="167" rx="6" ry="3.5" fill="#C8A96E" opacity="0.5"/>
+          <ellipse cx="388" cy="167" rx="6" ry="3.5" fill="#C8A96E" opacity="0.5"/>
+          <path d="M368 150 Q375 144,382 150 L380 132 Q375 130,370 132Z" fill="#FDF3DC" opacity="0.85" stroke="#D4AF37" strokeWidth="0.5"/>
+          {/* Arms slightly forward — open hand gesture */}
+          <path d="M370 142 Q364 138,360 132" stroke="#D4820A" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+          <ellipse cx="359" cy="131" rx="4" ry="3" fill="#D4820A" opacity="0.7"/>
+          <path d="M380 142 Q382 136,382 132" stroke="#D4820A" strokeWidth="3" fill="none" strokeLinecap="round"/>
+          {/* Head — turned slightly toward guru */}
+          <circle cx="375" cy="119" r="11" fill="#D4820A" opacity="0.9"/>
+          <path d="M366 115 C366 107,370 103,375 103 C380 103,384 107,384 115" fill="#3D1A00" opacity="0.75"/>
+          <circle cx="371" cy="119" r="1.5" fill="#3D1A00"/>
+          <circle cx="379" cy="119" r="1.5" fill="#3D1A00"/>
+          <path d="M373 113 L375 110 L377 113Z" fill="#8B1A1A" opacity="0.8"/>
+          <path d="M367 128 Q375 136,383 128 Q380 122,375 120 Q370 122,367 128Z" stroke="#FFF5CC" strokeWidth="1" fill="none" opacity="0.7"/>
+        </g>
+
+        {/* ── Decorative pots on sides ── */}
+        {/* Left pot */}
+        <g opacity="0.8">
+          <path d="M108 168 Q104 156,104 150 Q104 140,112 137 Q120 134,128 137 Q136 140,136 150 Q136 156,132 168Z" fill="#D4AF37" opacity="0.55"/>
+          <ellipse cx="120" cy="168" rx="12" ry="3" fill="#B8941F" opacity="0.5"/>
+          <ellipse cx="120" cy="137" rx="9" ry="3" fill="#D4AF37" opacity="0.6"/>
+          {/* Coconut on top */}
+          <circle cx="120" cy="132" r="7" fill="#8B6914" opacity="0.7"/>
+          {/* Leaves */}
+          <path d="M120 126 C114 116,106 114,112 124" fill="#2D6A2D" opacity="0.7" stroke="#2D6A2D" strokeWidth="0.5"/>
+          <path d="M120 126 C126 116,134 114,128 124" fill="#2D6A2D" opacity="0.7" stroke="#2D6A2D" strokeWidth="0.5"/>
+          <path d="M120 124 C120 114,120 110,120 106" stroke="#2D6A2D" strokeWidth="1.5" fill="none" opacity="0.5"/>
+          {/* Pot decoration */}
+          <path d="M108 152 Q120 149,132 152" stroke="#E8960C" strokeWidth="0.8" fill="none" opacity="0.5"/>
+          <path d="M107 158 Q120 155,133 158" stroke="#E8960C" strokeWidth="0.8" fill="none" opacity="0.4"/>
+        </g>
+        {/* Right pot */}
+        <g opacity="0.8">
+          <path d="M468 168 Q464 156,464 150 Q464 140,472 137 Q480 134,488 137 Q496 140,496 150 Q496 156,492 168Z" fill="#D4AF37" opacity="0.55"/>
+          <ellipse cx="480" cy="168" rx="12" ry="3" fill="#B8941F" opacity="0.5"/>
+          <ellipse cx="480" cy="137" rx="9" ry="3" fill="#D4AF37" opacity="0.6"/>
+          <circle cx="480" cy="132" r="7" fill="#8B6914" opacity="0.7"/>
+          <path d="M480 126 C474 116,466 114,472 124" fill="#2D6A2D" opacity="0.7" stroke="#2D6A2D" strokeWidth="0.5"/>
+          <path d="M480 126 C486 116,494 114,488 124" fill="#2D6A2D" opacity="0.7" stroke="#2D6A2D" strokeWidth="0.5"/>
+          <path d="M480 124 C480 114,480 110,480 106" stroke="#2D6A2D" strokeWidth="1.5" fill="none" opacity="0.5"/>
+          <path d="M468 152 Q480 149,492 152" stroke="#E8960C" strokeWidth="0.8" fill="none" opacity="0.5"/>
+          <path d="M467 158 Q480 155,493 158" stroke="#E8960C" strokeWidth="0.8" fill="none" opacity="0.4"/>
+        </g>
+
+        {/* ── Floating flower petals ── */}
+        {[160,200,250,350,400,440].map((x,i)=>(
+          <ellipse key={i} cx={x} cy={100+i*8} rx="4" ry="2.5"
+            fill={i%2===0?"#E8960C":"#D4AF37"} opacity="0.25"
+            transform={`rotate(${i*30} ${x} ${100+i*8})`}/>
+        ))}
+
+        {/* ── OM symbol above fire ── */}
+        <text x="300" y="108" textAnchor="middle" fontSize="18" fontFamily="serif" fill="#D4AF37" opacity="0.4" className="scene-om">ॐ</text>
+
+        {/* ── Border top line ── */}
+        <path d="M0 78 Q300 70,600 78" stroke="#D4AF37" strokeWidth="0.8" fill="none" opacity="0.2"/>
+      </svg>
     </div>
   )
 }
@@ -440,6 +619,20 @@ export default function App() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ─── FAMILY PHOTO ──────────────────────────────────────────────── */}
+      <section className="family-photo-section reveal">
+        <RangoliDots />
+        <div className="family-photo-frame">
+          <img
+            src="/family.jpeg"
+            alt="Panigrahi Family"
+            className="family-photo"
+          />
+          <p className="family-photo-caption">Panigrahi&rsquo;s Family</p>
+        </div>
+        <RangoliDots />
       </section>
 
       {/* ─── BOTTOM SCENE ─────────────────────────────────────────────── */}

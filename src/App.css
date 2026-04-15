@@ -474,171 +474,128 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   BOTTOM SCENE — Fence, Figures, Fire
+   BOTTOM SCENE — Vedic Illustration
    ═══════════════════════════════════════════════════════════════════════ */
 .bottom-scene {
   position: relative;
-  height: 180px;
-  margin-top: 2rem;
+  width: 100%;
+  margin-top: 1.5rem;
   z-index: 1;
   overflow: hidden;
 }
 
-/* Grass */
-.grass {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  background: linear-gradient(180deg, #4a9e4a 0%, #2D6A2D 60%, #1e4d1e 100%);
-  border-radius: 50% 50% 0 0 / 20px 20px 0 0;
+.bottom-scene-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 -4px 12px rgba(212, 175, 55, 0.15));
 }
 
-/* Fence */
-.fence {
-  position: absolute;
-  bottom: 28px;
-  left: 5%;
-  right: 5%;
-  height: 60px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-around;
+/* Animated fire flames */
+.flame-svg-1 {
+  transform-origin: 300px 150px;
+  animation: flameDance1 0.6s ease-in-out infinite alternate;
+}
+.flame-svg-2 {
+  transform-origin: 293px 148px;
+  animation: flameDance2 0.5s ease-in-out infinite alternate;
+}
+.flame-svg-3 {
+  transform-origin: 307px 148px;
+  animation: flameDance3 0.55s ease-in-out infinite alternate;
 }
 
-.fence-picket {
-  width: 8px;
-  height: 50px;
-  background: linear-gradient(180deg, #C8A96E 0%, #A0844A 100%);
-  border-radius: 3px 3px 0 0;
+@keyframes flameDance1 {
+  from { transform: scaleY(1)   scaleX(1)    skewX(0deg); }
+  to   { transform: scaleY(1.1) scaleX(0.92) skewX(3deg); }
+}
+@keyframes flameDance2 {
+  from { transform: scaleY(1)   skewX(0deg); }
+  to   { transform: scaleY(1.14) skewX(-4deg); }
+}
+@keyframes flameDance3 {
+  from { transform: scaleY(1)   skewX(0deg); }
+  to   { transform: scaleY(1.12) skewX(4deg); }
+}
+
+/* Gentle Om pulse */
+.scene-om {
+  animation: omPulse 3s ease-in-out infinite alternate;
+}
+@keyframes omPulse {
+  from { opacity: 0.25; }
+  to   { opacity: 0.55; }
+}
+
+/* Guru photo — blend white bg away */
+.guru-photo-img {
+  mix-blend-mode: multiply;
+  filter: contrast(1.05) saturate(1.1);
+}
+
+/* Guru subtle sway */
+.scene-guru {
+  transform-origin: 205px 168px;
+  animation: guruSway 5s ease-in-out infinite alternate;
+}
+@keyframes guruSway {
+  from { transform: rotate(-0.8deg); }
+  to   { transform: rotate(0.8deg); }
+}
+
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   FAMILY PHOTO
+   ═══════════════════════════════════════════════════════════════════════ */
+.family-photo-section {
   position: relative;
-}
-
-.fence-picket::before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 8px solid #C8A96E;
-}
-
-.fence-rail {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: #A0844A;
-  border-radius: 2px;
-}
-
-.fence-rail-top    { top: 10px; }
-.fence-rail-bottom { top: 30px; }
-
-/* Ceremony Figures */
-.ceremony-figures {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: flex-end;
-  gap: 24px;
-}
-
-.figure {
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: clamp(0.5rem, 2vw, 1rem) 0;
 }
 
-.figure-head {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #E8960C;
-  margin-bottom: 2px;
-}
-
-.figure-body {
-  width: 20px;
-  height: 30px;
-  border-radius: 4px 4px 0 0;
-}
-
-.guru-body {
-  background: linear-gradient(180deg, #E8960C, #D4820A);
-  width: 24px;
-  height: 35px;
-}
-
-.student-body {
-  background: linear-gradient(180deg, #FDF3DC, #F5DEB3);
-  border: 1px solid #D4AF37;
-  width: 18px;
-  height: 28px;
-}
-
-/* Sacred Fire */
-.sacred-fire {
+.family-photo-frame {
   position: relative;
-  width: 24px;
-  height: 30px;
-  margin: 0 8px;
-  align-self: flex-end;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: clamp(10px, 2.5vw, 16px);
+  background: linear-gradient(135deg, #FDF3DC 0%, #FAE8C0 100%);
+  border: 2px solid #D4AF37;
+  outline: 2px solid rgba(212, 175, 55, 0.25);
+  outline-offset: 4px;
+  border-radius: 20px;
+  box-shadow:
+    0 6px 28px rgba(139, 26, 26, 0.12),
+    0 0 0 6px rgba(212, 175, 55, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  max-width: min(92vw, 520px);
+  width: 100%;
 }
 
-.fire-base {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20px;
-  height: 8px;
-  background: #8B6914;
-  border-radius: 2px;
+.family-photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  box-shadow: 0 2px 12px rgba(139, 26, 26, 0.1);
 }
 
-.fire-flame {
-  position: absolute;
-  bottom: 6px;
-  left: 50%;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  animation: flicker 0.4s ease-in-out infinite alternate;
-}
-
-.flame-1 {
-  width: 10px;
-  height: 18px;
-  background: #E8960C;
-  transform: translateX(-50%);
-  animation-delay: 0s;
-}
-
-.flame-2 {
-  width: 6px;
-  height: 14px;
-  background: #FF6B00;
-  transform: translateX(-60%);
-  animation-delay: 0.15s;
-}
-
-.flame-3 {
-  width: 4px;
-  height: 10px;
-  background: #FFD700;
-  transform: translateX(-40%);
-  animation-delay: 0.3s;
-}
-
-@keyframes flicker {
-  from { transform: translateX(-50%) scaleY(1) scaleX(1); }
-  to   { transform: translateX(-50%) scaleY(1.15) scaleX(0.9); }
+.family-photo-caption {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+  font-variant: small-caps;
+  letter-spacing: 0.18em;
+  color: #8B1A1A;
+  margin: 0;
+  opacity: 0.85;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
